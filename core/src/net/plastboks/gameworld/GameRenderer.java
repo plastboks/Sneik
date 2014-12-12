@@ -31,15 +31,15 @@ public class GameRenderer {
         /* Filled rectangle */
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(87/255.0f, 109/255.0f, 120/255.0f, 1);
-        shapeRenderer.rect(world.getRect().x, world.getRect().y,
-                world.getRect().width, world.getRect().height);
+        shapeRenderer.rect(world.getSnake().getX(), world.getSnake().getY(),
+                world.getSnake().getWidth(), world.getSnake().getHeight());
         shapeRenderer.end();
 
         /* Rectangle outline */
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(255/255.0f, 109/255.0f, 120/255.0f, 1);
-        shapeRenderer.rect(world.getRect().x, world.getRect().y,
-                world.getRect().width, world.getRect().height);
+        shapeRenderer.rect(world.getSnake().getX(), world.getSnake().getY(),
+                world.getSnake().getWidth(), world.getSnake().getHeight());
         shapeRenderer.end();
     }
 }
