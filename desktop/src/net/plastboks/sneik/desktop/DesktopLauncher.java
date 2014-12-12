@@ -7,6 +7,10 @@ import net.plastboks.sneik.SneikGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "Sneik";
+		config.width = 272;
+		config.height = 408;
+		config.resizable = false;
 		new LwjglApplication(new SneikGame(), config);
 	}
 }
