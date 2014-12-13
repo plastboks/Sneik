@@ -7,12 +7,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.plastboks.screens.GameScreen;
+import net.plastboks.sneikhelpers.AssetLoader;
 
 public class SneikGame extends Game {
 
     @Override
     public void create() {
         Gdx.app.log("SneikGame", "created");
+        AssetLoader.load();
         setScreen(new GameScreen());
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        AssetLoader.dispose();
     }
 }
