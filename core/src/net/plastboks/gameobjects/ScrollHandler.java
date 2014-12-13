@@ -3,8 +3,6 @@ package net.plastboks.gameobjects;
 import net.plastboks.gameworld.GameWorld;
 import net.plastboks.sneikhelpers.AssetLoader;
 
-import java.io.StreamCorruptedException;
-
 /**
  * Created by alex on 12/13/14.
  */

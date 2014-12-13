@@ -1,7 +1,5 @@
 package net.plastboks.gameworld;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import net.plastboks.gameobjects.ScrollHandler;

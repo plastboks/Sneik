@@ -1,10 +1,5 @@
 package net.plastboks.gameobjects;
 
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
-
-import java.io.StreamCorruptedException;
-
 /**
  * Created by alex on 12/13/14.
  */

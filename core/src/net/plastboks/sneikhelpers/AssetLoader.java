@@ -26,6 +26,8 @@ public class AssetLoader {
 
     public static Preferences prefs;
 
+    private static String hs = "highscore";
+
     public static void load() {
         texture = new Texture(Gdx.files.internal("data/texture.png"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -67,7 +69,7 @@ public class AssetLoader {
 
         prefs = Gdx.app.getPreferences("Sneik");
 
-        if (!prefs.contains("highscore")) { prefs.putInteger("highscore", 0); }
+        if (!prefs.contains(hs)) { prefs.putInteger(hs, 0); }
     }
 
     public static void dispose() {
@@ -80,9 +82,9 @@ public class AssetLoader {
     }
 
     public static void setHighScore(int val) {
-        prefs.putInteger("highscore", val);
+        prefs.putInteger(hs, val);
         prefs.flush();
     }
 
-    public static int getHighScore() { return prefs.getInteger("highscore"); }
+    public static int getHighScore() { return prefs.getInteger(hs); }
 }

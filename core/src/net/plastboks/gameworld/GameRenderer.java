@@ -28,18 +28,16 @@ public class GameRenderer {
     private Grass frontGrass, backGrass;
     private Pipe p1, p2, p3;
 
-    private TextureRegion bg, grass;
+    private TextureRegion grass;
     private Animation snakeAnimation;
-    private TextureRegion snakeMid, snakeDown, snakeUp;
+    private TextureRegion snakeMid;
     private TextureRegion skullUp, skullDown, bar;
 
     private int midPointY;
-    private int gameHeight;
 
-    public GameRenderer(GameWorld world, int gameHeight, int midPointY) {
+    public GameRenderer(GameWorld world, int midPointY) {
         this.world = world;
 
-        this.gameHeight = gameHeight;
         this.midPointY = midPointY;
 
         this.cam = new OrthographicCamera();
@@ -65,12 +63,9 @@ public class GameRenderer {
     }
 
     private void initAssets() {
-        bg = AssetLoader.bg;
         grass = AssetLoader.grass;
         snakeAnimation = AssetLoader.snakeAnimation;
         snakeMid = AssetLoader.snake;
-        snakeDown = AssetLoader.snakeDown;
-        snakeUp = AssetLoader.snakeUp;
         skullUp = AssetLoader.skullUp;
         skullDown = AssetLoader.skullDown;
         bar = AssetLoader.bar;
@@ -105,8 +100,6 @@ public class GameRenderer {
     }
 
     public void render(float runTime) {
-        //Gdx.app.log("GameRenderer", "render");
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

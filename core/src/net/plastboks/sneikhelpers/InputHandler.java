@@ -23,9 +23,7 @@ public class InputHandler implements InputProcessor {
         if (world.isReady()) {
             world.start();
         }
-
         snake.onClick();
-
         if (world.isGameOver() || world.isHighScore()) {
             world.restart();
         }
@@ -33,38 +31,17 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
+    public boolean keyDown(int keycode) { return false; }
     @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
+    public boolean keyUp(int keycode) { return false; }
     @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
+    public boolean keyTyped(char character) { return false; }
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
+    public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
     @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
+    public boolean mouseMoved(int screenX, int screenY) { return false; }
     @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-
+    public boolean scrolled(int amount) { return false; }
 }

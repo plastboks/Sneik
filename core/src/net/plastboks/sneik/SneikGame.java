@@ -13,7 +13,6 @@ public class SneikGame extends Game {
 
     @Override
     public void create() {
-        Gdx.app.log("SneikGame", "created");
         AssetLoader.load();
         setScreen(new GameScreen());
     }

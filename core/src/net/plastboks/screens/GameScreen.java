@@ -2,7 +2,6 @@ package net.plastboks.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import net.plastboks.gameworld.GameRenderer;
 import net.plastboks.gameworld.GameWorld;
 import net.plastboks.sneikhelpers.InputHandler;
@@ -26,10 +25,8 @@ public class GameScreen implements Screen {
         int midPointY = (int) (gameHeight / 2);
 
         world = new GameWorld(midPointY);
-        renderer = new GameRenderer(world, (int) gameHeight, midPointY);
-
+        renderer = new GameRenderer(world, midPointY);
         Gdx.input.setInputProcessor(new InputHandler(world));
-        Gdx.app.log("GameScreen", "Attached");
     }
 
     @Override
@@ -40,33 +37,15 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
-        Gdx.app.log("GameScreen", "resizing");
-    }
-
+    public void resize(int width, int height) { }
     @Override
-    public void show() {
-        Gdx.app.log("GameScreen", "show called");
-    }
-
+    public void show() { }
     @Override
-    public void hide() {
-        Gdx.app.log("GameScreen", "hide called");
-    }
-
+    public void hide() { }
     @Override
-    public void pause() {
-        Gdx.app.log("GameScreen", "pause called");
-    }
-
+    public void pause() { }
     @Override
-    public void resume() {
-        Gdx.app.log("GameScreen", "resume called");
-    }
-
+    public void resume() { }
     @Override
-    public void dispose() {
-        // beh
-    }
-
+    public void dispose() { }
 }
