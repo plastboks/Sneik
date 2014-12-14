@@ -1,7 +1,7 @@
 package net.plastboks.sneikhelpers;
 
 import com.badlogic.gdx.InputProcessor;
-import net.plastboks.gameobjects.SnakeHead;
+import net.plastboks.gameobjects.Snake;
 import net.plastboks.gameworld.GameWorld;
 
 /**
@@ -10,11 +10,11 @@ import net.plastboks.gameworld.GameWorld;
 public class InputHandler implements InputProcessor {
 
     private GameWorld world;
-    private SnakeHead snakeHead;
+    private Snake snake;
 
     public InputHandler(GameWorld world) {
         this.world = world;
-        this.snakeHead = world.getSnakeHead();
+        this.snake = world.getSnake();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class InputHandler implements InputProcessor {
         if (world.isReady()) {
             world.start();
         }
-        snakeHead.onClick(screenX, screenY);
+        snake.onClick(screenX, screenY);
         if (world.isGameOver() || world.isHighScore()) {
             world.restart();
         }
@@ -33,16 +33,16 @@ public class InputHandler implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case 19:
-                world.getSnakeHead().changeDir(SnakeHead.Dirs.NORTH);
+                world.getSnake().changeDir(Snake.Dirs.NORTH);
                 break;
             case 20:
-                world.getSnakeHead().changeDir(SnakeHead.Dirs.SOUTH);
+                world.getSnake().changeDir(Snake.Dirs.SOUTH);
                 break;
             case 21:
-                world.getSnakeHead().changeDir(SnakeHead.Dirs.WEST);
+                world.getSnake().changeDir(Snake.Dirs.WEST);
                 break;
             case 22:
-                world.getSnakeHead().changeDir(SnakeHead.Dirs.EAST);
+                world.getSnake().changeDir(Snake.Dirs.EAST);
                 break;
 
         }

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 /**
  * Created by alex on 12/12/14.
  */
-public class SnakeHead {
+public class Snake {
     private Node head;
     private LinkedList<Node> body;
     private Circle boundingCircle;
@@ -34,7 +34,7 @@ public class SnakeHead {
         }
     }
 
-    public SnakeHead(float x, float y, int width, int height, int gameHeight) {
+    public Snake(float x, float y, int width, int height, int gameHeight) {
         this.width = width;
         this.height = height;
         this.gameHeight = gameHeight;

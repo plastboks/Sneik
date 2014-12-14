@@ -20,7 +20,7 @@ public class GameRenderer {
 
     private SpriteBatch batcher;
 
-    private SnakeHead snakeHead;
+    private Snake snake;
 
     private int midPointY;
 
@@ -41,7 +41,7 @@ public class GameRenderer {
     }
 
     private void initGameObjects() {
-        snakeHead = world.getSnakeHead();
+        snake = world.getSnake();
     }
 
     public void render(float runTime) {
@@ -57,15 +57,15 @@ public class GameRenderer {
 
         batcher.enableBlending();
 
-        for (SnakeHead.Node n : snakeHead.getBody()) {
+        for (Snake.Node n : snake.getBody()) {
             batcher.draw(AssetLoader.snakeBody, n.v.x, n.v.y,
-                    snakeHead.getWidth() / 4.0f, snakeHead.getHeight() / 4.0f,
-                    snakeHead.getWidth() / 2.0f, snakeHead.getHeight() / 2.0f, 1, 1, SnakeHead.getRotation(n.dir));
+                    snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
+                    snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1, Snake.getRotation(n.dir));
         }
 
-        batcher.draw(AssetLoader.snakeHead, snakeHead.getX(),
-                snakeHead.getY(), snakeHead.getWidth() / 4.0f, snakeHead.getHeight() / 4.0f,
-                snakeHead.getWidth() / 2.0f, snakeHead.getHeight() / 2.0f, 1, 1, snakeHead.getRotation());
+        batcher.draw(AssetLoader.snakeHead, snake.getX(),
+                snake.getY(), snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
+                snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1, snake.getRotation());
 
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);

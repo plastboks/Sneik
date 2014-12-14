@@ -2,7 +2,7 @@ package net.plastboks.gameworld;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import net.plastboks.gameobjects.SnakeHead;
+import net.plastboks.gameobjects.Snake;
 import net.plastboks.screens.GameScreen;
 import net.plastboks.sneikhelpers.AssetLoader;
 
@@ -12,7 +12,7 @@ import net.plastboks.sneikhelpers.AssetLoader;
 
 public class GameWorld {
 
-    private SnakeHead snakeHead;
+    private Snake snake;
     private Rectangle ground;
     private int score = 0;
     private int midPointY;
@@ -24,7 +24,7 @@ public class GameWorld {
     public GameWorld(int midPointY) {
         this.midPointY = midPointY;
         currentState = GameState.READY;
-        snakeHead = new SnakeHead(33, midPointY - 5, 15, 15, midPointY * 2);
+        snake = new Snake(33, midPointY - 5, 15, 15, midPointY * 2);
         ground = new Rectangle(0, midPointY + 66, GameScreen.GAME_WIDTH, 11);
     }
 
@@ -51,16 +51,16 @@ public class GameWorld {
 
         if (delta > .15f) { delta = .15f; }
 
-        snakeHead.update(1);
+        snake.update(1);
         //sh.update(delta);
 
-        if (snakeHead.isAlive()) {
-            snakeHead.die();
+        if (snake.isAlive()) {
+            snake.die();
             AssetLoader.dead.play();
         }
 
-        if (Intersector.overlaps(snakeHead.getBoundingCircle(), ground)) {
-            snakeHead.die();
+        if (Intersector.overlaps(snake.getBoundingCircle(), ground)) {
+            snake.die();
             currentState = GameState.GAMEOVER;
 
             if (score > AssetLoader.getHighScore()) {
@@ -73,14 +73,14 @@ public class GameWorld {
     public void restart() {
         currentState = GameState.READY;
         score = 0;
-        snakeHead.onRestart(midPointY - 5);
+        snake.onRestart(midPointY - 5);
         currentState = GameState.READY;
     }
 
     public void addScore(int inc) { score += inc; }
     public void start() { currentState = GameState.RUNNING; }
 
-    public SnakeHead getSnakeHead() { return snakeHead; }
+    public Snake getSnake() { return snake; }
     public int getScore() { return score; }
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }
