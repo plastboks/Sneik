@@ -1,12 +1,9 @@
 package net.plastboks.gameworld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.plastboks.gameobjects.*;
 import net.plastboks.screens.GameScreen;
@@ -23,15 +20,7 @@ public class GameRenderer {
 
     private SpriteBatch batcher;
 
-    private Snake snake;
-    private ScrollHandler sh;
-    private Grass frontGrass, backGrass;
-    private Pipe p1, p2, p3;
-
-    private TextureRegion grass;
-    private Animation snakeAnimation;
-    private TextureRegion snakeMid;
-    private TextureRegion skullUp, skullDown, bar;
+    private SnakeHead snakeHead;
 
     private int midPointY;
 
@@ -49,90 +38,34 @@ public class GameRenderer {
         shapeRenderer.setProjectionMatrix(cam.combined);
 
         initGameObjects();
-        initAssets();
     }
 
     private void initGameObjects() {
-        snake = world.getSnake();
-        sh = world.getSh();
-        frontGrass = sh.getFrontGrass();
-        backGrass = sh.getBackGrass();
-        p1 = sh.getPipe1();
-        p2 = sh.getPipe2();
-        p3 = sh.getPipe3();
-    }
-
-    private void initAssets() {
-        grass = AssetLoader.grass;
-        snakeAnimation = AssetLoader.snakeAnimation;
-        snakeMid = AssetLoader.snake;
-        skullUp = AssetLoader.skullUp;
-        skullDown = AssetLoader.skullDown;
-        bar = AssetLoader.bar;
-    }
-
-    private void drawGrass() {
-        batcher.draw(grass, frontGrass.getX(), frontGrass.getY(),
-                frontGrass.getWidth(), frontGrass.getHeight());
-        batcher.draw(grass, backGrass.getX(), backGrass.getY(),
-                backGrass.getWidth(), backGrass.getHeight());
-    }
-
-    private void drawSkulls() {
-        batcher.draw(skullUp, p1.getX() - 1, p1.getY() + p1.getHeight() - 14, 24, 14);
-        batcher.draw(skullDown, p1.getX() - 1, p1.getY() + p1.getHeight() + Pipe.VERTICAL_GAP, 24, 14);
-        batcher.draw(skullUp, p2.getX() - 1, p2.getY() + p2.getHeight() - 14, 24, 14);
-        batcher.draw(skullDown, p2.getX() - 1, p2.getY() + p2.getHeight() + Pipe.VERTICAL_GAP, 24, 14);
-        batcher.draw(skullUp, p3.getX() - 1, p3.getY() + p3.getHeight() - 14, 24, 14);
-        batcher.draw(skullDown, p3.getX() - 1, p3.getY() + p3.getHeight() + Pipe.VERTICAL_GAP, 24, 14);
-    }
-
-    private void drawPipes() {
-        batcher.draw(bar, p1.getX(), p1.getY(), p1.getWidth(), p1.getHeight());
-        batcher.draw(bar, p1.getX(), p1.getY() + p1.getHeight() + Pipe.VERTICAL_GAP,
-                p1.getWidth(), midPointY + 66 - (p1.getHeight() + Pipe.VERTICAL_GAP));
-        batcher.draw(bar, p2.getX(), p2.getY(), p2.getWidth(), p2.getHeight());
-        batcher.draw(bar, p2.getX(), p2.getY() + p2.getHeight() + Pipe.VERTICAL_GAP,
-                p2.getWidth(), midPointY + 66 - (p2.getHeight() + Pipe.VERTICAL_GAP));
-        batcher.draw(bar, p3.getX(), p3.getY(), p3.getWidth(), p3.getHeight());
-        batcher.draw(bar, p3.getX(), p3.getY() + p3.getHeight() + Pipe.VERTICAL_GAP,
-                p3.getWidth(), midPointY + 66 - (p3.getHeight() + Pipe.VERTICAL_GAP));
+        snakeHead = world.getSnakeHead();
     }
 
     public void render(float runTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(55/255.0f, 80/255.0f, 100/255.0f, 1);
-        shapeRenderer.rect(0, 0, GameScreen.GAME_WIDTH, midPointY + 66);
-
-        shapeRenderer.setColor(111/255.0f, 186/255.0f, Pipe.VERTICAL_GAP/255.0f, 1);
-        shapeRenderer.rect(0, midPointY + 66, GameScreen.GAME_WIDTH, 11);
-
-        shapeRenderer.setColor(147/255.0f, 80/255.0f, 27/255.0f, 1);
-        shapeRenderer.rect(0, midPointY + 77, GameScreen.GAME_WIDTH, 52);
-
         shapeRenderer.end();
 
         batcher.begin();
         batcher.disableBlending();
-        batcher.draw(AssetLoader.bg, 0, midPointY + 23, GameScreen.GAME_WIDTH, 43);
 
-        drawGrass();
-        drawPipes();
+        batcher.draw(AssetLoader.bg, 0, 0, GameScreen.GAME_WIDTH, GameScreen.getHeight());
+
         batcher.enableBlending();
-        drawSkulls();
 
-        if (snake.shouldntFlap()) {
-            batcher.draw(snakeMid, snake.getX(), snake.getY(),
-                    snake.getWidth() / 2.0f, snake.getHeight() / 2.0f,
-                    snake.getWidth(), snake.getHeight(), 1, 1, snake.getRotation());
-        } else {
-            batcher.draw(snakeAnimation.getKeyFrame(runTime), snake.getX(),
-                    snake.getY(), snake.getWidth() / 2.0f, snake.getHeight() / 2.0f,
-                    snake.getWidth(), snake.getHeight(), 1, 1, snake.getRotation());
+        for (SnakeHead.Node n : snakeHead.getBody()) {
+            batcher.draw(AssetLoader.snakeBody, n.v.x, n.v.y,
+                    snakeHead.getWidth() / 4.0f, snakeHead.getHeight() / 4.0f,
+                    snakeHead.getWidth() / 2.0f, snakeHead.getHeight() / 2.0f, 1, 1, SnakeHead.getRotation(n.dir));
         }
+
+        batcher.draw(AssetLoader.snakeHead, snakeHead.getX(),
+                snakeHead.getY(), snakeHead.getWidth() / 4.0f, snakeHead.getHeight() / 4.0f,
+                snakeHead.getWidth() / 2.0f, snakeHead.getHeight() / 2.0f, 1, 1, snakeHead.getRotation());
 
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);
@@ -158,12 +91,13 @@ public class GameRenderer {
                 AssetLoader.shadow.draw(batcher, "Try again ?", 23, 76);
                 AssetLoader.font.draw(batcher, "Try again ?", 22, 75);
             }
-
+            /*
             String score = world.getScore() + "";
             AssetLoader.shadow.draw(batcher, score,
                     (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 12);
             AssetLoader.font.draw(batcher, score,
                     (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 11);
+            */
         }
         batcher.end();
     }

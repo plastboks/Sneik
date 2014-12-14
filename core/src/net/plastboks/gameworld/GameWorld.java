@@ -2,8 +2,7 @@ package net.plastboks.gameworld;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import net.plastboks.gameobjects.ScrollHandler;
-import net.plastboks.gameobjects.Snake;
+import net.plastboks.gameobjects.SnakeHead;
 import net.plastboks.screens.GameScreen;
 import net.plastboks.sneikhelpers.AssetLoader;
 
@@ -13,8 +12,7 @@ import net.plastboks.sneikhelpers.AssetLoader;
 
 public class GameWorld {
 
-    private Snake snake;
-    private ScrollHandler sh;
+    private SnakeHead snakeHead;
     private Rectangle ground;
     private int score = 0;
     private int midPointY;
@@ -26,8 +24,7 @@ public class GameWorld {
     public GameWorld(int midPointY) {
         this.midPointY = midPointY;
         currentState = GameState.READY;
-        snake = new Snake(33, midPointY - 5, 17, 12);
-        sh = new ScrollHandler(this, midPointY + 66);
+        snakeHead = new SnakeHead(33, midPointY - 5, 15, 15, midPointY * 2);
         ground = new Rectangle(0, midPointY + 66, GameScreen.GAME_WIDTH, 11);
     }
 
@@ -54,19 +51,16 @@ public class GameWorld {
 
         if (delta > .15f) { delta = .15f; }
 
-        snake.update(delta);
-        sh.update(delta);
+        snakeHead.update(1);
+        //sh.update(delta);
 
-        if (sh.collides(snake) && snake.isAlive()) {
-            sh.stop();
-            snake.die();
+        if (snakeHead.isAlive()) {
+            snakeHead.die();
             AssetLoader.dead.play();
         }
 
-        if (Intersector.overlaps(snake.getBoundingCircle(), ground)) {
-            sh.stop();
-            snake.die();
-            snake.decelerate();
+        if (Intersector.overlaps(snakeHead.getBoundingCircle(), ground)) {
+            snakeHead.die();
             currentState = GameState.GAMEOVER;
 
             if (score > AssetLoader.getHighScore()) {
@@ -79,16 +73,14 @@ public class GameWorld {
     public void restart() {
         currentState = GameState.READY;
         score = 0;
-        snake.onRestart(midPointY - 5);
-        sh.onRestart();
+        snakeHead.onRestart(midPointY - 5);
         currentState = GameState.READY;
     }
 
     public void addScore(int inc) { score += inc; }
     public void start() { currentState = GameState.RUNNING; }
 
-    public Snake getSnake() { return snake; }
-    public ScrollHandler getSh() { return sh; }
+    public SnakeHead getSnakeHead() { return snakeHead; }
     public int getScore() { return score; }
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }

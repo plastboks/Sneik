@@ -1,8 +1,7 @@
 package net.plastboks.sneikhelpers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import net.plastboks.gameobjects.Snake;
+import net.plastboks.gameobjects.SnakeHead;
 import net.plastboks.gameworld.GameWorld;
 
 /**
@@ -11,11 +10,11 @@ import net.plastboks.gameworld.GameWorld;
 public class InputHandler implements InputProcessor {
 
     private GameWorld world;
-    private Snake snake;
+    private SnakeHead snakeHead;
 
     public InputHandler(GameWorld world) {
         this.world = world;
-        this.snake = world.getSnake();
+        this.snakeHead = world.getSnakeHead();
     }
 
     @Override
@@ -23,7 +22,7 @@ public class InputHandler implements InputProcessor {
         if (world.isReady()) {
             world.start();
         }
-        snake.onClick();
+        snakeHead.onClick(screenX, screenY);
         if (world.isGameOver() || world.isHighScore()) {
             world.restart();
         }
@@ -31,7 +30,24 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean keyDown(int keycode) { return false; }
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case 19:
+                world.getSnakeHead().changeDir(SnakeHead.Dirs.NORTH);
+                break;
+            case 20:
+                world.getSnakeHead().changeDir(SnakeHead.Dirs.SOUTH);
+                break;
+            case 21:
+                world.getSnakeHead().changeDir(SnakeHead.Dirs.WEST);
+                break;
+            case 22:
+                world.getSnakeHead().changeDir(SnakeHead.Dirs.EAST);
+                break;
+
+        }
+        return false;
+    }
     @Override
     public boolean keyUp(int keycode) { return false; }
     @Override
