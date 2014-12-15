@@ -14,12 +14,10 @@ public class Snake {
     private Node head;
     private LinkedList<Node> body;
     private Circle boundingCircle;
-
     private float rotation;
     private int width;
     private int height;
     private int gameHeight;
-
     private boolean isAlive;
 
     public static enum Dirs {NORTH, SOUTH, EAST, WEST}
@@ -47,23 +45,22 @@ public class Snake {
         isAlive = true;
     }
 
-    private void moveEast(int inc) {
-        head.v.x += inc;
+    private void moveEast(float delta) {
+        head.v.x += delta;
         if (head.v.x > GameScreen.GAME_WIDTH) { head.v.x = 0; }
     }
 
-    private void moveWest(int inc) {
-        head.v.x -= inc;
+    private void moveWest(float delta) {
+        head.v.x -= delta;
         if (head.v.x < 0) { head.v.x = GameScreen.GAME_WIDTH; }
     }
-
-    private void moveNorth(int inc) {
-        head.v.y -= inc;
+    private void moveNorth(float delta) {
+        head.v.y -= delta;
         if (head.v.y < 0) { head.v.y = gameHeight; }
     }
 
-    private void moveSouth(int inc) {
-        head.v.y += inc;
+    private void moveSouth(float delta) {
+        head.v.y += delta;
         if (head.v.y > gameHeight) { head.v.y = 0; }
     }
 
@@ -101,20 +98,21 @@ public class Snake {
         body.add(new Node(new Vector2(head.v.x, head.v.y), head.dir));
     }
 
-    public void update(int inc) {
-        pushToBody(300);
+    public void update(float delta) {
+        pushToBody(30);
+        float level = 1.5f;
         switch (head.dir) {
             case EAST:
-                moveEast(inc);
+                moveEast(delta + level);
                 break;
             case WEST:
-                moveWest(inc);
+                moveWest(delta + level);
                 break;
             case NORTH:
-                moveNorth(inc);
+                moveNorth(delta + level);
                 break;
             case SOUTH:
-                moveSouth(inc);
+                moveSouth(delta + level);
                 break;
         }
     }

@@ -51,13 +51,13 @@ public class GameWorld {
 
         if (delta > .15f) { delta = .15f; }
 
-        snake.update(1);
+        snake.update(delta);
         //sh.update(delta);
 
-        if (snake.isAlive()) {
-            snake.die();
-            AssetLoader.dead.play();
-        }
+        //if (snake.isAlive()) {
+        //    snake.die();
+        //    AssetLoader.dead.play();
+        //}
 
         if (Intersector.overlaps(snake.getBoundingCircle(), ground)) {
             snake.die();

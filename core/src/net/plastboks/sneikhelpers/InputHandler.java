@@ -1,5 +1,6 @@
 package net.plastboks.sneikhelpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import net.plastboks.gameobjects.Snake;
 import net.plastboks.gameworld.GameWorld;
