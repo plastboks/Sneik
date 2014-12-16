@@ -15,6 +15,7 @@ public class AssetLoader {
     public static TextureRegion bg;
 
     public static TextureRegion snakeHead, snakeBody;
+    public static TextureRegion bird, mouse;
 
     public static Sound dead, coin, flap;
     public static BitmapFont font, shadow;
@@ -34,6 +35,11 @@ public class AssetLoader {
         snakeHead.flip(false, true);
         snakeBody = new TextureRegion(texture, 48, 0, 15, 15);
         snakeBody.flip(false, true);
+
+        bird = new TextureRegion(texture, 32, 15, 15, 15);
+        bird.flip(false, true);
+        mouse = new TextureRegion(texture, 48, 15, 15, 15);
+        mouse.flip(false, true);
 
         dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));

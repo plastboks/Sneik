@@ -2,6 +2,8 @@ package net.plastboks.gameworld;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import net.plastboks.gameobjects.Bird;
+import net.plastboks.gameobjects.Mouse;
 import net.plastboks.gameobjects.Snake;
 import net.plastboks.screens.GameScreen;
 import net.plastboks.sneikhelpers.AssetLoader;
@@ -13,6 +15,8 @@ import net.plastboks.sneikhelpers.AssetLoader;
 public class GameWorld {
 
     private Snake snake;
+    private Bird bird;
+    private Mouse mouse;
     private Rectangle ground;
     private int score = 0;
     private int midPointY;
@@ -24,7 +28,11 @@ public class GameWorld {
     public GameWorld(int midPointY) {
         this.midPointY = midPointY;
         currentState = GameState.READY;
+
         snake = new Snake(33, midPointY - 5, 15, 15, midPointY * 2);
+        bird = new Bird(10, 10, 15, 15, midPointY * 2);
+        mouse = new Mouse(40, 40, 15, 15, midPointY * 2);
+
         ground = new Rectangle(0, midPointY + 66, GameScreen.GAME_WIDTH, 11);
     }
 
@@ -81,6 +89,8 @@ public class GameWorld {
     public void start() { currentState = GameState.RUNNING; }
 
     public Snake getSnake() { return snake; }
+    public Bird getBird() { return bird; }
+    public Mouse getMouse() { return mouse; }
     public int getScore() { return score; }
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }
