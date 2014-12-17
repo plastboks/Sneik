@@ -1,139 +1,85 @@
 package net.plastboks.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import net.plastboks.screens.GameScreen;
+import net.plastboks.shared.Directions;
 
 import java.util.LinkedList;
 
 /**
  * Created by alex on 12/12/14.
  */
-public class Snake {
-    private Node head;
+public class Snake extends Creature {
+
     private LinkedList<Node> body;
     private Circle boundingCircle;
-    private float rotation;
-    private int width;
-    private int height;
-    private int gameHeight;
-    private boolean isAlive;
-
-    public static enum Dirs {NORTH, SOUTH, EAST, WEST}
-
-    public class Node {
-        public Vector2 v;
-        public Dirs dir;
-
-        public Node(Vector2 v, Dirs d) {
-            this.v = v;
-            this.dir = d;
-        }
-    }
 
     public Snake(float x, float y, int width, int height, int gameHeight) {
-        this.width = width;
-        this.height = height;
-        this.gameHeight = gameHeight;
+        super(x, y, width, height);
+        setGameHeight(gameHeight);
+        setAlive(true);
 
         this.body = new LinkedList<Node>();
-
-        head = new Node(new Vector2(x,y), Dirs.NORTH);
-
         boundingCircle = new Circle();
-        isAlive = true;
-    }
-
-    private void moveEast(float delta) {
-        head.v.x += delta;
-        if (head.v.x > GameScreen.GAME_WIDTH) { head.v.x = 0; }
-    }
-
-    private void moveWest(float delta) {
-        head.v.x -= delta;
-        if (head.v.x < 0) { head.v.x = GameScreen.GAME_WIDTH; }
-    }
-    private void moveNorth(float delta) {
-        head.v.y -= delta;
-        if (head.v.y < 0) { head.v.y = gameHeight; }
-    }
-
-    private void moveSouth(float delta) {
-        head.v.y += delta;
-        if (head.v.y > gameHeight) { head.v.y = 0; }
-    }
-
-    public void changeDir(Dirs d) {
-        switch (d) {
-            case NORTH:
-                if (head.dir != Dirs.SOUTH) {
-                    head.dir = d;
-                    rotation = getRotation(d);
-                }
-                break;
-            case SOUTH:
-                if (head.dir != Dirs.NORTH) {
-                    head.dir = d;
-                    rotation = getRotation(d);
-                }
-                break;
-            case WEST:
-                if (head.dir != Dirs.EAST) {
-                    head.dir = d;
-                    rotation = getRotation(d);
-                }
-                break;
-            case EAST:
-                if (head.dir != Dirs.WEST) {
-                    head.dir = d;
-                    rotation = getRotation(d);
-                }
-                break;
-        }
     }
 
     private void pushToBody(int max) {
         if (body.size() >= max) { body.removeFirst(); }
-        body.add(new Node(new Vector2(head.v.x, head.v.y), head.dir));
+        body.add(new Node(new Vector2(getX(), getY()), getDir()));
     }
 
-    public void update(float delta) {
-        pushToBody(30);
-        float level = 1.5f;
-        switch (head.dir) {
-            case EAST:
-                moveEast(delta + level);
-                break;
-            case WEST:
-                moveWest(delta + level);
-                break;
+    public void changeDir(Directions d) {
+        switch (d) {
             case NORTH:
-                moveNorth(delta + level);
+                if (getDir() != Directions.SOUTH) {
+                    setDir(d);
+                    setRotation(Directions.NORTH);
+                }
                 break;
             case SOUTH:
-                moveSouth(delta + level);
+                if (getDir() != Directions.NORTH) {
+                    setDir(d);
+                    setRotation(Directions.SOUTH);
+                }
+                break;
+            case WEST:
+                if (getDir() != Directions.EAST) {
+                    setDir(d);
+                    setRotation(Directions.WEST);
+                }
+                break;
+            case EAST:
+                if (getDir() != Directions.WEST) {
+                    setDir(d);
+                    setRotation(Directions.EAST);
+                }
                 break;
         }
     }
 
+    public void update(float delta) {
+        float lvl = 1.5f;
+        pushToBody(30);
+        move(delta + lvl);
+    }
+
     public void onClick(int x, int y) {
-        if (isAlive) {
-            switch (head.dir) {
+        if (isAlive()) {
+            switch (getDir()) {
                 case EAST:
                 case WEST:
-                    if (y < head.v.y) {
-                        changeDir(Dirs.NORTH);
+                    if (y < getY()) {
+                        changeDir(Directions.NORTH);
                     } else {
-                        changeDir(Dirs.SOUTH);
+                        changeDir(Directions.SOUTH);
                     }
                     break;
                 case NORTH:
                 case SOUTH:
-                    if (x < head.v.x) {
-                        changeDir(Dirs.EAST);
+                    if (x < getX()) {
+                        changeDir(Directions.EAST);
                     } else {
-                        changeDir(Dirs.WEST);
+                        changeDir(Directions.WEST);
                     }
                     break;
             }
@@ -141,29 +87,11 @@ public class Snake {
     }
 
     public void onRestart(int y) {
-        rotation = 0;
-        head.v.y = y;
-        isAlive = true;
+        setRotation(Directions.WEST);
+        setY(y);
+        setAlive(true);
     }
 
-    public void die() { isAlive = false; }
-    public boolean isAlive() { return isAlive; }
-
-    public float getX() { return head.v.x; }
-    public float getY() { return head.v.y; }
-    public float getWidth() { return width; }
-    public float getHeight() { return height; }
-    public float getRotation() { return rotation; }
     public LinkedList<Node> getBody() { return body; }
     public Circle getBoundingCircle() { return boundingCircle; }
-
-    public static float getRotation(Dirs d) {
-        switch(d) {
-            case NORTH: return -90;
-            case SOUTH: return 90;
-            case WEST: return 180;
-            case EAST: return 0;
-            default: return 0;
-        }
-    }
 }
