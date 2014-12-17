@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by alex on 12/16/14.
  */
-public abstract class Base {
+public abstract class Creature {
 
     private Vector2 pos;
     private int width;
@@ -13,7 +13,7 @@ public abstract class Base {
     private int gameHeight;
     private boolean isAlive;
 
-    public Base(float x, float y, int width, int height) {
+    public Creature(float x, float y, int width, int height) {
         this.pos = new Vector2(x, y);
         this.width = width;
         this.height = height;
