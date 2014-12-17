@@ -60,6 +60,9 @@ public class GameWorld {
         if (delta > .15f) { delta = .15f; }
 
         snake.update(delta);
+        bird.update(delta);
+        mouse.update(delta);
+
         //sh.update(delta);
 
         //if (snake.isAlive()) {

@@ -61,7 +61,7 @@ public class GameRenderer {
 
         batcher.enableBlending();
 
-        for (Snake.Node n : snake.getBody()) {
+        for (Node n : snake.getBody()) {
             batcher.draw(AssetLoader.snakeBody, n.v.x, n.v.y,
                     snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
                     snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1, Snake.getRotation(n.dir));
@@ -70,17 +70,20 @@ public class GameRenderer {
         /* draw snake */
         batcher.draw(AssetLoader.snakeHead, snake.getX(),
                 snake.getY(), snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
-                snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1, snake.getRotation());
+                snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1,
+                snake.getRotation(snake.getDir()));
 
         /* draw bird */
         batcher.draw(AssetLoader.bird, bird.getX(),
                 bird.getY(), bird.getWidth() / 4.0f, bird.getHeight() / 4.0f,
-                bird.getWidth() / 2.0f, bird.getHeight() / 2.0f, 1, 1, bird.getRotation());
+                bird.getWidth() / 2.0f, bird.getHeight() / 2.0f, 1, 1,
+                bird.getRotation(bird.getDir()));
 
         /* draw mouse */
         batcher.draw(AssetLoader.mouse, mouse.getX(),
                 mouse.getY(), mouse.getWidth() / 4.0f, mouse.getHeight() / 4.0f,
-                mouse.getWidth() / 2.0f, mouse.getHeight() / 2.0f, 1, 1, mouse.getRotation());
+                mouse.getWidth() / 2.0f, mouse.getHeight() / 2.0f, 1, 1,
+                mouse.getRotation(mouse.getDir()));
 
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);

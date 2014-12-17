@@ -1,7 +1,7 @@
 package net.plastboks.sneikhelpers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import net.plastboks.shared.Directions;
 import net.plastboks.gameobjects.Snake;
 import net.plastboks.gameworld.GameWorld;
 
@@ -34,16 +34,16 @@ public class InputHandler implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case 19:
-                world.getSnake().changeDir(Snake.Dirs.NORTH);
+                world.getSnake().changeDir(Directions.NORTH);
                 break;
             case 20:
-                world.getSnake().changeDir(Snake.Dirs.SOUTH);
+                world.getSnake().changeDir(Directions.SOUTH);
                 break;
             case 21:
-                world.getSnake().changeDir(Snake.Dirs.WEST);
+                world.getSnake().changeDir(Directions.WEST);
                 break;
             case 22:
-                world.getSnake().changeDir(Snake.Dirs.EAST);
+                world.getSnake().changeDir(Directions.EAST);
                 break;
 
         }
