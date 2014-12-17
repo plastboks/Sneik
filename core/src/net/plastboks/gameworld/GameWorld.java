@@ -30,8 +30,8 @@ public class GameWorld {
         currentState = GameState.READY;
 
         snake = new Snake(33, midPointY - 5, 15, 15, midPointY * 2);
-        bird = new Bird(10, 10, 15, 15, midPointY * 2);
-        mouse = new Mouse(40, 40, 15, 15, midPointY * 2);
+        bird = new Bird(15, 15);
+        mouse = new Mouse(15, 15);
 
         ground = new Rectangle(0, midPointY + 66, GameScreen.GAME_WIDTH, 11);
     }
