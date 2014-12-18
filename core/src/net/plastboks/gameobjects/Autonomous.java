@@ -40,4 +40,6 @@ public abstract class Autonomous extends Creature implements Artificial {
 
         }
     }
+
+    public void respawn() { setNode(randX(), randY()); }
 }
