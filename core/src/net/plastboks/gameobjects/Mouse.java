@@ -15,5 +15,4 @@ public class Mouse extends Autonomous
         changeDir();
         move(delta + lvl);
     }
-
 }
