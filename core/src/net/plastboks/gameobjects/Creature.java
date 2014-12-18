@@ -1,5 +1,6 @@
 package net.plastboks.gameobjects;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import net.plastboks.shared.Directions;
 
@@ -15,6 +16,7 @@ public abstract class Creature {
     private boolean isAlive;
     private float rotation;
 
+    private Circle boundingCircle;
 
     public Creature(float x, float y, int width, int height) {
         head = new Node(new Vector2(x, y), Directions.NORTH);
@@ -22,9 +24,12 @@ public abstract class Creature {
         this.height = height;
 
         isAlive = true;
+        boundingCircle = new Circle();
     }
 
     public void move(float delta) {
+        boundingCircle.set(head.getX() + 9, head.getY() + 6, 6.5f);
+
         switch (head.getDir()) {
             case NORTH:
                 head.setY(head.getY() - delta);
@@ -41,12 +46,21 @@ public abstract class Creature {
         }
     }
 
+    /* x, y getters and setters */
     public float getX() { return head.getX(); }
     public float getY() { return head.getY(); }
-    public Directions getDir() { return head.getDir(); }
     public void setX(float x) { head.setX(x); }
     public void setY(float y) { head.setY(y); }
+
+    /* Directions getter and setter */
+    public Directions getDir() { return head.getDir(); }
     public void setDir(Directions d) { head.setDir(d); }
+
+    /* Node getter and setter */
+    public Node getNode() { return head; }
+    public void setNode(float x, float y) {
+        head = new Node(new Vector2(x, y), getDir());
+    }
 
     public int getWidth() { return width; }
     public int getHeight() { return height; }
@@ -67,6 +81,8 @@ public abstract class Creature {
             default: return 0;
         }
     }
+
+    public Circle getBoundingCircle() { return boundingCircle; }
 
     public abstract void update(float delta);
 }

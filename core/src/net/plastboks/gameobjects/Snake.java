@@ -1,6 +1,6 @@
 package net.plastboks.gameobjects;
 
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import net.plastboks.shared.Directions;
 
@@ -12,7 +12,6 @@ import java.util.LinkedList;
 public class Snake extends Creature {
 
     private LinkedList<Node> body;
-    private Circle boundingCircle;
 
     public Snake(float x, float y, int width, int height, int gameHeight) {
         super(x, y, width, height);
@@ -20,7 +19,6 @@ public class Snake extends Creature {
         setAlive(true);
 
         this.body = new LinkedList<Node>();
-        boundingCircle = new Circle();
     }
 
     private void pushToBody(int max) {
@@ -93,5 +91,8 @@ public class Snake extends Creature {
     }
 
     public LinkedList<Node> getBody() { return body; }
-    public Circle getBoundingCircle() { return boundingCircle; }
+
+    public boolean collides(Creature c) {
+        return Intersector.overlaps(getBoundingCircle(), c.getBoundingCircle());
+    }
 }
