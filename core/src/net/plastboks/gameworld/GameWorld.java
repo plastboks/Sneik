@@ -1,5 +1,6 @@
 package net.plastboks.gameworld;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import net.plastboks.gameobjects.Bird;
@@ -63,6 +64,16 @@ public class GameWorld {
         bird.update(delta);
         mouse.update(delta);
 
+        if (snake.collides(bird)) {
+            Gdx.app.log("bird: ", "nom nom");
+            bird.respawn();
+        }
+
+        if (snake.collides(mouse)) {
+            Gdx.app.log("mouse: ", "nom nom");
+            mouse.respawn();
+        }
+
         //sh.update(delta);
 
         //if (snake.isAlive()) {
@@ -70,6 +81,7 @@ public class GameWorld {
         //    AssetLoader.dead.play();
         //}
 
+        /*
         if (Intersector.overlaps(snake.getBoundingCircle(), ground)) {
             snake.die();
             currentState = GameState.GAMEOVER;
@@ -79,6 +91,7 @@ public class GameWorld {
                 currentState = GameState.HIGHSCORE;
             }
         }
+        */
     }
 
     public void restart() {
