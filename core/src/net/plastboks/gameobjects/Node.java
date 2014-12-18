@@ -17,10 +17,9 @@ public class Node {
         this.dir = d;
     }
 
+    /* x, y getter and setters */
     public float getX() { return v.x; }
     public float getY() { return v.y; }
-    public Directions getDir() { return dir; }
-    public void setDir(Directions d) { dir = d; }
     public void setX(float x) {
         v.x = x;
         if (v.x > GameScreen.GAME_WIDTH) { v.x = 0; }
@@ -31,5 +30,9 @@ public class Node {
         if (v.y > GameScreen.getHeight()) { v.y = 0; }
         if (v.y < 0) { v.y = GameScreen.getHeight(); }
     }
+
+    /* Direction getter and setter */
+    public Directions getDir() { return dir; }
+    public void setDir(Directions d) { dir = d; }
 }
 
