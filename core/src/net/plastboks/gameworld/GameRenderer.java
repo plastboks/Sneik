@@ -3,6 +3,7 @@ package net.plastboks.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.plastboks.gameobjects.*;
 import net.plastboks.screens.GameScreen;
@@ -20,8 +21,6 @@ public class GameRenderer {
     private SpriteBatch batcher;
 
     private Snake snake;
-    private Bird bird;
-    private Mouse mouse;
 
     private int midPointY;
 
@@ -43,8 +42,6 @@ public class GameRenderer {
 
     private void initGameObjects() {
         snake = world.getSnake();
-        bird = world.getBird();
-        mouse = world.getMouse();
     }
 
     public void render(float runTime) {
@@ -72,17 +69,21 @@ public class GameRenderer {
                 snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1,
                 snake.getRotation(snake.getDir()));
 
-        /* draw bird */
-        batcher.draw(AssetLoader.bird, bird.getX(),
-                bird.getY(), bird.getWidth() / 4.0f, bird.getHeight() / 4.0f,
-                bird.getWidth() / 2.0f, bird.getHeight() / 2.0f, 1, 1,
-                bird.getRotation(bird.getDir()));
+        for (Autonomous a : world.getFood()) {
+            TextureRegion tr;
+            if (a instanceof Bird) {
+                tr = AssetLoader.bird;
+            } else if (a instanceof Mouse) {
+                tr = AssetLoader.mouse;
+            } else {
+                tr = AssetLoader.bird;
+            }
 
-        /* draw mouse */
-        batcher.draw(AssetLoader.mouse, mouse.getX(),
-                mouse.getY(), mouse.getWidth() / 4.0f, mouse.getHeight() / 4.0f,
-                mouse.getWidth() / 2.0f, mouse.getHeight() / 2.0f, 1, 1,
-                mouse.getRotation(mouse.getDir()));
+            batcher.draw(tr, a.getX(), a.getY(),
+                    a.getWidth() / 4.0f, a.getHeight() / 4.0f,
+                    a.getWidth() / 2.0f, a.getHeight() / 2.0f,
+                    1, 1, a.getRotation(a.getDir()));
+        }
 
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);

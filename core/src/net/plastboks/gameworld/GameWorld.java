@@ -1,13 +1,12 @@
 package net.plastboks.gameworld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
+import net.plastboks.gameobjects.Autonomous;
 import net.plastboks.gameobjects.Bird;
 import net.plastboks.gameobjects.Mouse;
 import net.plastboks.gameobjects.Snake;
-import net.plastboks.screens.GameScreen;
-import net.plastboks.sneikhelpers.AssetLoader;
+
+import java.util.LinkedList;
 
 /**
  * Created by alex on 12/12/14.
@@ -16,9 +15,7 @@ import net.plastboks.sneikhelpers.AssetLoader;
 public class GameWorld {
 
     private Snake snake;
-    private Bird bird;
-    private Mouse mouse;
-    private Rectangle ground;
+    private LinkedList<Autonomous> food;
     private int score = 0;
     private int midPointY;
 
@@ -31,10 +28,14 @@ public class GameWorld {
         currentState = GameState.READY;
 
         snake = new Snake(33, midPointY - 5, 15, 15, midPointY * 2);
-        bird = new Bird(15, 15);
-        mouse = new Mouse(15, 15);
 
-        ground = new Rectangle(0, midPointY + 66, GameScreen.GAME_WIDTH, 11);
+        food = new LinkedList<Autonomous>();
+        initFood();
+    }
+
+    private void initFood() {
+        food.add(new Bird(15, 15));
+        food.add(new Mouse(15, 15));
     }
 
     public void update(float delta) {
@@ -61,37 +62,16 @@ public class GameWorld {
         if (delta > .15f) { delta = .15f; }
 
         snake.update(delta);
-        bird.update(delta);
-        mouse.update(delta);
-
-        if (snake.collides(bird)) {
-            Gdx.app.log("bird: ", "nom nom");
-            bird.respawn();
+        for(Autonomous a : food) {
+            a.update(delta);
+            if (snake.collides(a)) { a.respawn(); }
         }
-
-        if (snake.collides(mouse)) {
-            Gdx.app.log("mouse: ", "nom nom");
-            mouse.respawn();
-        }
-
-        //sh.update(delta);
 
         //if (snake.isAlive()) {
         //    snake.die();
         //    AssetLoader.dead.play();
         //}
 
-        /*
-        if (Intersector.overlaps(snake.getBoundingCircle(), ground)) {
-            snake.die();
-            currentState = GameState.GAMEOVER;
-
-            if (score > AssetLoader.getHighScore()) {
-                AssetLoader.setHighScore(score);
-                currentState = GameState.HIGHSCORE;
-            }
-        }
-        */
     }
 
     public void restart() {
@@ -105,8 +85,8 @@ public class GameWorld {
     public void start() { currentState = GameState.RUNNING; }
 
     public Snake getSnake() { return snake; }
-    public Bird getBird() { return bird; }
-    public Mouse getMouse() { return mouse; }
+    public LinkedList<Autonomous> getFood() { return food; }
+
     public int getScore() { return score; }
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }
