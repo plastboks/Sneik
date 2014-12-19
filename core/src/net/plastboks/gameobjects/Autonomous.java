@@ -1,5 +1,6 @@
 package net.plastboks.gameobjects;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.plastboks.screens.GameScreen;
 import net.plastboks.shared.Directions;
 
@@ -42,4 +43,5 @@ public abstract class Autonomous extends Creature implements Artificial {
     }
 
     public void respawn() { setNode(randX(), randY()); }
+    public abstract TextureRegion getTexture();
 }

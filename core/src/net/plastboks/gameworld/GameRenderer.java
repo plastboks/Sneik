@@ -44,6 +44,31 @@ public class GameRenderer {
         snake = world.getSnake();
     }
 
+    public void drawSnakeHead() {
+        batcher.draw(AssetLoader.snakeHead, snake.getX(),
+                snake.getY(), snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
+                snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1,
+                snake.getRotation(snake.getDir()));
+
+    }
+
+    public void drawSnakeBody() {
+        for (Node n : snake.getBody()) {
+            batcher.draw(AssetLoader.snakeBody, n.v.x, n.v.y,
+                    snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
+                    snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1, Snake.getRotation(n.dir));
+        }
+    }
+
+    public void drawFood() {
+        for (Autonomous a : world.getFood()) {
+            batcher.draw(a.getTexture(), a.getX(), a.getY(),
+                    a.getWidth() / 4.0f, a.getHeight() / 4.0f,
+                    a.getWidth() / 2.0f, a.getHeight() / 2.0f,
+                    1, 1, a.getRotation(a.getDir()));
+        }
+    }
+
     public void render(float runTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -52,38 +77,15 @@ public class GameRenderer {
 
         batcher.begin();
         batcher.disableBlending();
-
         batcher.draw(AssetLoader.bg, 0, 0, GameScreen.GAME_WIDTH, GameScreen.getHeight());
-
         batcher.enableBlending();
 
-        for (Node n : snake.getBody()) {
-            batcher.draw(AssetLoader.snakeBody, n.v.x, n.v.y,
-                    snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
-                    snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1, Snake.getRotation(n.dir));
-        }
-
+        /* draw snake body */
+        drawSnakeBody();
         /* draw snake */
-        batcher.draw(AssetLoader.snakeHead, snake.getX(),
-                snake.getY(), snake.getWidth() / 4.0f, snake.getHeight() / 4.0f,
-                snake.getWidth() / 2.0f, snake.getHeight() / 2.0f, 1, 1,
-                snake.getRotation(snake.getDir()));
-
-        for (Autonomous a : world.getFood()) {
-            TextureRegion tr;
-            if (a instanceof Bird) {
-                tr = AssetLoader.bird;
-            } else if (a instanceof Mouse) {
-                tr = AssetLoader.mouse;
-            } else {
-                tr = AssetLoader.bird;
-            }
-
-            batcher.draw(tr, a.getX(), a.getY(),
-                    a.getWidth() / 4.0f, a.getHeight() / 4.0f,
-                    a.getWidth() / 2.0f, a.getHeight() / 2.0f,
-                    1, 1, a.getRotation(a.getDir()));
-        }
+        drawSnakeHead();
+        /* draw food */
+        drawFood();
 
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);
