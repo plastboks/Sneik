@@ -28,7 +28,7 @@ public abstract class Creature {
     }
 
     public void move(float delta) {
-        boundingCircle.set(head.getX() + 9, head.getY() + 6, 6.5f);
+        boundingCircle.set(head.getX(), head.getY(), 3.5f);
 
         switch (head.getDir()) {
             case NORTH:

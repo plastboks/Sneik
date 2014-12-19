@@ -36,9 +36,9 @@ public class AssetLoader {
         snakeBody = new TextureRegion(texture, 48, 0, 15, 15);
         snakeBody.flip(false, true);
 
-        bird = new TextureRegion(texture, 32, 15, 15, 15);
+        bird = new TextureRegion(texture, 32, 16, 15, 15);
         bird.flip(false, true);
-        mouse = new TextureRegion(texture, 48, 15, 15, 15);
+        mouse = new TextureRegion(texture, 48, 16, 15, 15);
         mouse.flip(false, true);
 
         dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
