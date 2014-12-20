@@ -1,5 +1,6 @@
 package net.plastboks.sneikhelpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import net.plastboks.shared.Directions;
 import net.plastboks.gameobjects.Snake;
@@ -23,7 +24,9 @@ public class InputHandler implements InputProcessor {
         if (world.isReady()) {
             world.start();
         }
-        snake.onClick(screenX, screenY);
+        //Gdx.app.log("Height: ", Gdx.graphics.getHeight() + "");
+        //Gdx.app.log("Width: ", Gdx.graphics.getWidth() + "");
+        snake.onClick(screenX/2.f, screenY/2.f);
         if (world.isGameOver() || world.isHighScore()) {
             world.restart();
         }
