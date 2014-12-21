@@ -1,6 +1,7 @@
 package net.plastboks.gameobjects;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import net.plastboks.shared.Directions;
 
@@ -16,20 +17,16 @@ public abstract class Creature {
     private boolean isAlive;
     private float rotation;
 
-    private Circle boundingCircle;
-
     public Creature(float x, float y, int width, int height) {
         head = new Node(new Vector2(x, y), Directions.NORTH);
         this.width = width;
         this.height = height;
 
         isAlive = true;
-        boundingCircle = new Circle();
+        rotation = 0f;
     }
 
     public void move(float delta) {
-        boundingCircle.set(head.getX(), head.getY(), 3.5f);
-
         switch (head.getDir()) {
             case NORTH:
                 head.setY(head.getY() - delta);
@@ -72,6 +69,7 @@ public abstract class Creature {
     public void die() { setAlive(false);}
 
     public void setRotation(Directions d) { rotation = getRotation(d); }
+
     public static float getRotation(Directions d) {
         switch(d) {
             case NORTH: return -90;
@@ -82,7 +80,15 @@ public abstract class Creature {
         }
     }
 
-    public Circle getBoundingCircle() { return boundingCircle; }
+    public Circle getBoundingCircle() { return head.getBoundingCircle(); }
 
     public abstract void update(float delta);
+
+    public boolean collides(Creature c) {
+        return Intersector.overlaps(getBoundingCircle(), c.getBoundingCircle());
+    }
+
+    public boolean collides(Node n) {
+        return Intersector.overlaps(getBoundingCircle(), n.getBoundingCircle());
+    }
 }
