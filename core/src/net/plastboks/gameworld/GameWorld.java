@@ -56,7 +56,7 @@ public class GameWorld {
             a.update(delta);
             if (snake.collides(a)) {
                 a.respawn();
-                snake.incrementBodySizeBy(4);
+                snake.eat();
                 AssetLoader.coin.play();
             }
             for (Node n : snake.getBody()) {

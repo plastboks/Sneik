@@ -16,6 +16,8 @@ public abstract class Creature {
     private int gameHeight;
     private boolean isAlive;
     private float rotation;
+    private float lvl = 1.2f;
+    private float lvlInc = 0.2f;
 
     public Creature(float x, float y, int width, int height) {
         head = new Node(new Vector2(x, y), Directions.NORTH);

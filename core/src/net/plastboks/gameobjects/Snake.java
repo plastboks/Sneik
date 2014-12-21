@@ -2,6 +2,7 @@ package net.plastboks.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
 import net.plastboks.shared.Directions;
+import net.plastboks.sneikhelpers.AssetLoader;
 
 import java.util.LinkedList;
 
@@ -11,8 +12,10 @@ import java.util.LinkedList;
 public class Snake extends Creature {
 
     private LinkedList<Node> body;
-    private float lvl = 1.2f;
+    private float lvl = 0.8f;
+    private float lvlInc = 0.2f;
     private int bodySize = 4;
+    private int collisions;
 
     public Snake(float x, float y, int width, int height, int gameHeight) {
         super(x, y, width, height);
@@ -20,6 +23,12 @@ public class Snake extends Creature {
         setAlive(true);
 
         this.body = new LinkedList<Node>();
+    }
+
+    private void incrementBodySizeBy(int n) { bodySize += n; }
+    private void incrementSpeed() {
+        lvl += lvlInc;
+        AssetLoader.flap.play();
     }
 
     private void pushToBody(float delta, int max) {
@@ -84,6 +93,11 @@ public class Snake extends Creature {
         }
     }
 
+    public void eat() {
+        incrementBodySizeBy(4);
+        if (++collisions % 3 == 0) { incrementSpeed(); }
+    }
+
     public void onRestart(int y) {
         setRotation(Directions.WEST);
         setY(y);
@@ -92,5 +106,4 @@ public class Snake extends Creature {
 
     public LinkedList<Node> getBody() { return body; }
 
-    public void incrementBodySizeBy(int n) { bodySize += n; }
 }
