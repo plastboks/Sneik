@@ -1,6 +1,7 @@
 package net.plastboks.gameworld;
 
 import net.plastboks.gameobjects.*;
+import net.plastboks.sneikhelpers.AssetLoader;
 
 import java.util.LinkedList;
 
@@ -58,18 +59,20 @@ public class GameWorld {
         snake.update(delta);
         for(Autonomous a : food) {
             a.update(delta);
-            if (snake.collides(a)) { a.respawn(); }
+            if (snake.collides(a)) {
+                a.respawn();
+                AssetLoader.coin.play();
+            }
             for (Node n : snake.getBody()) {
                 if (a.collides(n)) { a.changeDir(); }
+                if (snake.collides(n)) {
+                    //snake.die();
+                    //AssetLoader.dead.play();
+                }
+
             }
 
         }
-
-        //if (snake.isAlive()) {
-        //    snake.die();
-        //    AssetLoader.dead.play();
-        //}
-
     }
 
     public void restart() {
