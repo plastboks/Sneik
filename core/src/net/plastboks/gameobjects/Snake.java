@@ -1,6 +1,5 @@
 package net.plastboks.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import net.plastboks.shared.Directions;
@@ -63,8 +62,6 @@ public class Snake extends Creature {
     }
 
     public void onClick(float x, float y) {
-        //Gdx.app.log("X: ", x + " " + getX());
-        //Gdx.app.log("Y: ", y + " " + getY());
         if (isAlive()) {
             switch (getDir()) {
                 case EAST:
