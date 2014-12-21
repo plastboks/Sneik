@@ -8,16 +8,20 @@ import net.plastboks.sneikhelpers.AssetLoader;
  */
 public class Mouse extends Autonomous
 {
+    private float lvl = 0.3f;
 
     public Mouse(int width, int height) {
         super(width, height);
+        setFactor(2000);
+        setDivider(543);
     }
 
     public void update(float delta) {
-        float lvl = 0.5f;
         changeDir();
         move(delta + lvl);
     }
+
+    public void setLvl(float lvl) { this.lvl = lvl; }
 
     public TextureRegion getTexture() { return AssetLoader.mouse; }
 }
