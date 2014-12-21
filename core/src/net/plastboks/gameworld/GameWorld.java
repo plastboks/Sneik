@@ -1,6 +1,5 @@
 package net.plastboks.gameworld;
 
-import com.badlogic.gdx.Gdx;
 import net.plastboks.gameobjects.Autonomous;
 import net.plastboks.gameobjects.Bird;
 import net.plastboks.gameobjects.Mouse;
@@ -53,9 +52,7 @@ public class GameWorld {
 
     }
 
-    public void updateReady(float delta) {
-
-    }
+    public void updateReady(float delta) { }
 
     public void updateRunning(float delta) {
 
