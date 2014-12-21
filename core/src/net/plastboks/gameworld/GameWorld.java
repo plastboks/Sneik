@@ -13,12 +13,11 @@ public class GameWorld {
 
     private Snake snake;
     private LinkedList<Autonomous> food;
+    public enum GameState { READY, RUNNING, GAMEOVER, HIGHSCORE }
+    private GameState currentState;
+
     private int score = 0;
     private int midPointY;
-
-    public enum GameState { READY, RUNNING, GAMEOVER, HIGHSCORE }
-
-    private GameState currentState;
 
     public GameWorld(int midPointY) {
         this.midPointY = midPointY;
@@ -36,7 +35,6 @@ public class GameWorld {
     }
 
     public void update(float delta) {
-
         switch (currentState) {
             case READY:
                 updateReady(delta);
@@ -53,14 +51,12 @@ public class GameWorld {
     public void updateReady(float delta) { }
 
     public void updateRunning(float delta) {
-
-        if (delta > .15f) { delta = .15f; }
-
         snake.update(delta);
         for(Autonomous a : food) {
             a.update(delta);
             if (snake.collides(a)) {
                 a.respawn();
+                snake.incrementBodySizeBy(4);
                 AssetLoader.coin.play();
             }
             for (Node n : snake.getBody()) {

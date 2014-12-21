@@ -1,6 +1,5 @@
 package net.plastboks.gameobjects;
 
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import net.plastboks.shared.Directions;
 
@@ -12,6 +11,8 @@ import java.util.LinkedList;
 public class Snake extends Creature {
 
     private LinkedList<Node> body;
+    private float lvl = 1.2f;
+    private int bodySize = 4;
 
     public Snake(float x, float y, int width, int height, int gameHeight) {
         super(x, y, width, height);
@@ -21,7 +22,7 @@ public class Snake extends Creature {
         this.body = new LinkedList<Node>();
     }
 
-    private void pushToBody(int max) {
+    private void pushToBody(float delta, int max) {
         if (body.size() >= max) { body.removeFirst(); }
         body.add(new Node(new Vector2(getX(), getY()), getDir()));
     }
@@ -56,8 +57,7 @@ public class Snake extends Creature {
     }
 
     public void update(float delta) {
-        float lvl = 1.5f;
-        pushToBody(30);
+        pushToBody(delta, bodySize);
         move(delta + lvl);
     }
 
@@ -92,4 +92,5 @@ public class Snake extends Creature {
 
     public LinkedList<Node> getBody() { return body; }
 
+    public void incrementBodySizeBy(int n) { bodySize += n; }
 }
