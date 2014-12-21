@@ -3,7 +3,6 @@ package net.plastboks.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.plastboks.gameobjects.*;
 import net.plastboks.screens.GameScreen;
@@ -121,4 +120,6 @@ public class GameRenderer {
         }
         batcher.end();
     }
+
+    public OrthographicCamera getCam() { return cam; }
 }
