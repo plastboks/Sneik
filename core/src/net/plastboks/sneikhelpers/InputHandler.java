@@ -1,7 +1,8 @@
 package net.plastboks.sneikhelpers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
+import net.plastboks.gameworld.GameRenderer;
 import net.plastboks.shared.Directions;
 import net.plastboks.gameobjects.Snake;
 import net.plastboks.gameworld.GameWorld;
@@ -12,24 +13,27 @@ import net.plastboks.gameworld.GameWorld;
 public class InputHandler implements InputProcessor {
 
     private GameWorld world;
+    private GameRenderer renderer;
     private Snake snake;
+    Vector3 touchPoint;
 
-    public InputHandler(GameWorld world) {
+    public InputHandler(GameWorld world, GameRenderer renderer) {
         this.world = world;
         this.snake = world.getSnake();
+        this.renderer = renderer;
+        this.touchPoint = new Vector3();
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (world.isReady()) {
-            world.start();
-        }
-        //Gdx.app.log("Height: ", Gdx.graphics.getHeight() + "");
-        //Gdx.app.log("Width: ", Gdx.graphics.getWidth() + "");
-        snake.onClick(screenX/2.f, screenY/2.f);
-        if (world.isGameOver() || world.isHighScore()) {
-            world.restart();
-        }
+        renderer.getCam().unproject(touchPoint.set(screenX, screenY, 0));
+
+        if (world.isReady()) { world.start(); }
+
+        snake.onClick(touchPoint.x, touchPoint.y);
+
+        if (world.isGameOver() || world.isHighScore()) { world.restart(); }
+
         return true;
     }
 
@@ -52,6 +56,7 @@ public class InputHandler implements InputProcessor {
         }
         return false;
     }
+
     @Override
     public boolean keyUp(int keycode) { return false; }
     @Override
