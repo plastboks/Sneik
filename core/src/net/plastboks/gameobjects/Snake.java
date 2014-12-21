@@ -92,7 +92,4 @@ public class Snake extends Creature {
 
     public LinkedList<Node> getBody() { return body; }
 
-    public boolean collides(Creature c) {
-        return Intersector.overlaps(getBoundingCircle(), c.getBoundingCircle());
-    }
 }
