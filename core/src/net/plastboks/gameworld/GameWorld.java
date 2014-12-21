@@ -1,9 +1,6 @@
 package net.plastboks.gameworld;
 
-import net.plastboks.gameobjects.Autonomous;
-import net.plastboks.gameobjects.Bird;
-import net.plastboks.gameobjects.Mouse;
-import net.plastboks.gameobjects.Snake;
+import net.plastboks.gameobjects.*;
 
 import java.util.LinkedList;
 
@@ -62,6 +59,10 @@ public class GameWorld {
         for(Autonomous a : food) {
             a.update(delta);
             if (snake.collides(a)) { a.respawn(); }
+            for (Node n : snake.getBody()) {
+                if (a.collides(n)) { a.changeDir(); }
+            }
+
         }
 
         //if (snake.isAlive()) {
