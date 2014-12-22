@@ -83,6 +83,10 @@ public abstract class Creature {
         }
     }
 
+    public void incrementSpeed() {
+        if (lvl + lvlInc <= maxLvl) { lvl += lvlInc; }
+    }
+
     public Circle getBoundingCircle() { return head.getBoundingCircle(); }
 
     public abstract void update(float delta);
