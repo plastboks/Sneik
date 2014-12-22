@@ -24,4 +24,6 @@ public class Mouse extends Autonomous
     public void setLvl(float lvl) { this.lvl = lvl; }
 
     public TextureRegion getTexture() { return AssetLoader.mouse; }
+
+    public void playSound() { AssetLoader.mousefx.play(); }
 }

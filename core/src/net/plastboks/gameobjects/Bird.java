@@ -24,4 +24,6 @@ public class Bird extends Autonomous
     public void setLvl(float lvl) { this.lvl = lvl; }
 
     public TextureRegion getTexture() { return AssetLoader.bird; }
+
+    public void playSound() { AssetLoader.birdfx.play(); }
 }

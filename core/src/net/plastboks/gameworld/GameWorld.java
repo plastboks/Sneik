@@ -57,7 +57,7 @@ public class GameWorld {
             if (snake.collides(a)) {
                 a.respawn();
                 snake.eat();
-                AssetLoader.coin.play();
+                a.playSound();
             }
             for (Node n : snake.getBody()) {
                 if (a.collides(n)) { a.changeDir(); }
