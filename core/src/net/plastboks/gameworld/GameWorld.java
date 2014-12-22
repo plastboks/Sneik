@@ -1,7 +1,6 @@
 package net.plastboks.gameworld;
 
 import net.plastboks.gameobjects.*;
-import net.plastboks.sneikhelpers.AssetLoader;
 
 import java.util.LinkedList;
 
@@ -12,9 +11,9 @@ import java.util.LinkedList;
 public class GameWorld {
 
     private Snake snake;
-    private LinkedList<Autonomous> food;
     public enum GameState { READY, RUNNING, GAMEOVER, HIGHSCORE }
     private GameState currentState;
+    private GamePlay gp;
 
     private int score = 0;
     private int midPointY;
@@ -25,13 +24,7 @@ public class GameWorld {
 
         snake = new Snake(33, midPointY - 5, 15, 15, midPointY * 2);
 
-        food = new LinkedList<Autonomous>();
-        initFood();
-    }
-
-    private void initFood() {
-        food.add(new Bird(15, 15));
-        food.add(new Mouse(15, 15));
+        gp = new GamePlay();
     }
 
     public void update(float delta) {
@@ -52,7 +45,7 @@ public class GameWorld {
 
     public void updateRunning(float delta) {
         snake.update(delta);
-        for(Autonomous a : food) {
+        for(Autonomous a : gp.getFood()) {
             a.update(delta);
             if (snake.collides(a)) {
                 a.respawn();
@@ -82,7 +75,7 @@ public class GameWorld {
     public void start() { currentState = GameState.RUNNING; }
 
     public Snake getSnake() { return snake; }
-    public LinkedList<Autonomous> getFood() { return food; }
+    public LinkedList<Autonomous> getFood() { return gp.getFood(); }
 
     public int getScore() { return score; }
     public boolean isReady() { return currentState == GameState.READY; }
