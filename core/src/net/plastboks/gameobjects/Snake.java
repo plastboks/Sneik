@@ -17,7 +17,7 @@ public class Snake extends Creature {
     private int collisions;
     private float lvl = 0.8f;
     private float lvlInc = 0.2f;
-    private float maxLvl = 2.6f;
+    private float maxLvl = 1.6f;
 
     public Snake(float x, float y, int width, int height, int gameHeight) {
         super(x, y, width, height);
@@ -63,6 +63,10 @@ public class Snake extends Creature {
         }
     }
 
+    public void incrementSpeed() {
+        if (lvl + lvlInc <= maxLvl) { lvl += lvlInc; }
+    }
+
     public void update(float delta) {
         pushToBody(delta, bodySize);
         move(delta + lvl);
@@ -93,7 +97,7 @@ public class Snake extends Creature {
 
     public void eat() {
         incrementBodySizeBy(4);
-        if (++collisions % 3 == 0) { incrementSpeed(); }
+        if (++collisions % 5 == 0) { incrementSpeed(); }
     }
 
     public void onRestart(int y) {
