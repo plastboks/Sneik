@@ -10,8 +10,10 @@ import java.util.LinkedList;
  */
 public class Snake extends Creature {
 
+    private final int startBodySize = 4;
+
     private LinkedList<Node> body;
-    private int bodySize = 4;
+    private int bodySize = startBodySize;
     private int collisions;
     private float lvl = 0.8f;
     private float lvlInc = 0.2f;
@@ -98,8 +100,11 @@ public class Snake extends Creature {
         setRotation(Directions.WEST);
         setY(y);
         setAlive(true);
+        body = new LinkedList<Node>();
+        bodySize = startBodySize;
     }
 
     public LinkedList<Node> getBody() { return body; }
 
+    public void die() { setAlive(false); }
 }

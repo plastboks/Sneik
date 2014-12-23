@@ -69,7 +69,6 @@ public abstract class Creature {
 
     public void setAlive(boolean b) { isAlive = b; }
     public boolean isAlive()  { return isAlive; }
-    public void die() { setAlive(false);}
 
     public void setRotation(Directions d) { rotation = getRotation(d); }
 

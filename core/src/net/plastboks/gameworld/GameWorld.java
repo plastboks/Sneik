@@ -1,6 +1,7 @@
 package net.plastboks.gameworld;
 
 import net.plastboks.gameobjects.*;
+import net.plastboks.sneikhelpers.AssetLoader;
 
 import java.util.LinkedList;
 
@@ -50,17 +51,31 @@ public class GameWorld {
             if (snake.collides(a)) {
                 a.respawn();
                 snake.eat();
+                addScore(1);
                 a.playSound();
             }
+            int i = snake.getBody().size();
             for (Node n : snake.getBody()) {
+                /* prey collides with snake body */
                 if (a.collides(n)) { a.changeDir(); }
-                if (snake.collides(n)) {
-                    //snake.die();
-                    //AssetLoader.dead.play();
+                /* snake eats itself - game over - */
+                if (i > snake.getWidth() && snake.collides(n)) {
+                    gameOver();
+                    return;
                 }
-
+                i--;
             }
+        }
+    }
 
+    private void gameOver() {
+        snake.die();
+        AssetLoader.dead.play();
+        if (getScore() > AssetLoader.getHighScore()) {
+            AssetLoader.setHighScore(score);
+            currentState = GameState.HIGHSCORE;
+        } else {
+            currentState = GameState.GAMEOVER;
         }
     }
 
@@ -71,13 +86,14 @@ public class GameWorld {
         currentState = GameState.READY;
     }
 
-    public void addScore(int inc) { score += inc; }
     public void start() { currentState = GameState.RUNNING; }
+
+    public void addScore(int inc) { score += inc; }
+    public int getScore() { return score; }
 
     public Snake getSnake() { return snake; }
     public LinkedList<Autonomous> getFood() { return gp.getFood(); }
 
-    public int getScore() { return score; }
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }
     public boolean isHighScore() { return currentState == GameState.HIGHSCORE; }
