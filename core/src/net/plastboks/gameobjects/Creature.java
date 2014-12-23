@@ -1,5 +1,6 @@
 package net.plastboks.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -80,10 +81,6 @@ public abstract class Creature {
             case EAST: return 0;
             default: return 0;
         }
-    }
-
-    public void incrementSpeed() {
-        if (lvl + lvlInc <= maxLvl) { lvl += lvlInc; }
     }
 
     public Circle getBoundingCircle() { return head.getBoundingCircle(); }
