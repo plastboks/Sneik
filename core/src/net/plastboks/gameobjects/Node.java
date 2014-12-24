@@ -33,7 +33,7 @@ public class Node {
     }
     public void setY(float y) {
         v.y = y;
-        if (v.y > GameScreen.getHeight()) { v.y = 0; }
+        if (v.y > /*GameScreen.getHeight()*/ 204) { v.y = 0; }
         if (v.y < 0) { v.y = GameScreen.getHeight(); }
         boundingCircle.set(v.x, v.y, circleRadius);
     }
