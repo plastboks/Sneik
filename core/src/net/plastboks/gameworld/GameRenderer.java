@@ -21,12 +21,8 @@ public class GameRenderer {
 
     private Snake snake;
 
-    private int midPointY;
-
-    public GameRenderer(GameWorld world, int midPointY) {
+    public GameRenderer(GameWorld world) {
         this.world = world;
-
-        this.midPointY = midPointY;
 
         this.cam = new OrthographicCamera();
         cam.setToOrtho(true, GameScreen.GAME_WIDTH, 204);
@@ -91,6 +87,11 @@ public class GameRenderer {
             AssetLoader.font.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 75);
         } else {
             if (world.isGameOver() || world.isHighScore()) {
+                String score = world.getScore() + "";
+                AssetLoader.shadow.draw(batcher, score,
+                        (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 12);
+                AssetLoader.font.draw(batcher, score,
+                        (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 11);
                 if (world.isGameOver()) {
                     AssetLoader.shadow.draw(batcher, "Game Over", 25, 56);
                     AssetLoader.font.draw(batcher, "Game Over", 24, 55);
@@ -104,19 +105,12 @@ public class GameRenderer {
                     AssetLoader.font.draw(batcher, highScore,
                             (GameScreen.GAME_WIDTH / 2) - (3 * highScore.length() - 1), 127);
                 } else {
-                    AssetLoader.shadow.draw(batcher, "High Score!", 19, 56);
-                    AssetLoader.font.draw(batcher, "High Score!", 18, 55);
+                    AssetLoader.shadow.draw(batcher, "New high Score!", 19, 56);
+                    AssetLoader.font.draw(batcher, "New high Score!", 18, 55);
                 }
                 AssetLoader.shadow.draw(batcher, "Try again ?", 23, 76);
                 AssetLoader.font.draw(batcher, "Try again ?", 22, 75);
             }
-            /*
-            String score = world.getScore() + "";
-            AssetLoader.shadow.draw(batcher, score,
-                    (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 12);
-            AssetLoader.font.draw(batcher, score,
-                    (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 11);
-            */
         }
         batcher.end();
     }
