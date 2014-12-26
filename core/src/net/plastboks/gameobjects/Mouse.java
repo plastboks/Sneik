@@ -9,6 +9,7 @@ import net.plastboks.sneikhelpers.AssetLoader;
 public class Mouse extends Autonomous
 {
     private float lvl = 0.3f;
+    private int score = 2;
 
     public Mouse(int width, int height) {
         super(width, height);
@@ -26,4 +27,5 @@ public class Mouse extends Autonomous
     public TextureRegion getTexture() { return AssetLoader.mouse; }
 
     public void playSound() { AssetLoader.mousefx.play(); }
+    public int getScore() { return score; }
 }

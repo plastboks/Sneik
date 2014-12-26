@@ -9,6 +9,7 @@ import net.plastboks.sneikhelpers.AssetLoader;
 public class Bird extends Autonomous
 {
     private float lvl = 0.2f;
+    private int score = 1;
 
     public Bird(int width, int height) {
         super(width, height);
@@ -26,4 +27,5 @@ public class Bird extends Autonomous
     public TextureRegion getTexture() { return AssetLoader.bird; }
 
     public void playSound() { AssetLoader.birdfx.play(); }
+    public int getScore() { return score; }
 }
