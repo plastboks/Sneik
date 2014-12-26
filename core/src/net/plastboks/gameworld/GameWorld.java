@@ -25,7 +25,7 @@ public class GameWorld {
 
         snake = new Snake(33, midPointY - 5, 15, 15, midPointY * 2);
 
-        gp = new GamePlay();
+        gp = new GamePlay(snake);
     }
 
     public void update(float delta) {
@@ -49,9 +49,9 @@ public class GameWorld {
         for(Autonomous a : gp.getFood()) {
             a.update(delta);
             if (snake.collides(a)) {
+                gp.increment();
                 a.respawn();
-                snake.eat();
-                addScore(1);
+                addScore(a.getScore());
                 a.playSound();
             }
             int i = snake.getBody().size();
