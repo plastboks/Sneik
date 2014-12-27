@@ -24,13 +24,21 @@ public class GamePlay {
     }
 
     private void initFood() {
-        food.add(new Bird(15, 15));
-        food.add(new Mouse(15, 15));
+        add(new Bird(15, 15));
+        add(new Mouse(15, 15));
     }
+
+    private void remove(Autonomous a) { food.remove(a); }
+    private void removeRandom() {
+
+    }
+    private void add(Autonomous a) { food.add(a); }
 
     public void increment() {
         inc++;
         snake.eat();
+        //if (inc % 5 == 0) { add(new Bird(15, 15)); }
+        //if (inc % 7 == 0) { add(new Mouse(15, 15)); }
     }
 
     public LinkedList<Autonomous> getFood() { return food; }
