@@ -49,7 +49,7 @@ public class GameWorld {
         for(Autonomous a : gp.getFood()) {
             a.update(delta);
             if (snake.collides(a)) {
-                gp.increment();
+                gp.increment(a);
                 a.respawn();
                 addScore(a.getScore());
                 a.playSound();
@@ -93,6 +93,7 @@ public class GameWorld {
 
     public Snake getSnake() { return snake; }
     public LinkedList<Autonomous> getFood() { return gp.getFood(); }
+    public GamePlay getGamePlay() { return gp; }
 
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }
