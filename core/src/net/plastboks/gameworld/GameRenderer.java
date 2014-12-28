@@ -80,7 +80,7 @@ public class GameRenderer {
         /* draw snake */
         drawSnakeHead();
         /* draw food */
-        drawFood();
+        if (!world.getGamePlay().getLock()) { drawFood(); }
 
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);
