@@ -27,7 +27,7 @@ public class Snake extends Creature {
         this.body = new LinkedList<Node>();
     }
 
-    private void incrementBodySizeBy(int n) { bodySize += n; }
+    public void incrementBodySizeBy(int n) { bodySize += n; }
 
     private void pushToBody(float delta, int max) {
         if (body.size() >= max) { body.removeFirst(); }
@@ -93,11 +93,6 @@ public class Snake extends Creature {
                     break;
             }
         }
-    }
-
-    public void eat() {
-        incrementBodySizeBy(4);
-        if (++collisions % 5 == 0) { incrementSpeed(); }
     }
 
     public void onRestart(int y) {
