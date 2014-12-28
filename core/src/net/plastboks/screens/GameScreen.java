@@ -16,6 +16,7 @@ public class GameScreen implements Screen {
     private float runTime = 0;
 
     public static final int GAME_WIDTH = 136;
+    public static final int GAME_HEIGHT = 204;
 
     public GameScreen() {
 
