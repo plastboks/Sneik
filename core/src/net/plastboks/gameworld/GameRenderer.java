@@ -105,8 +105,8 @@ public class GameRenderer {
                     AssetLoader.font.draw(batcher, highScore,
                             (GameScreen.GAME_WIDTH / 2) - (3 * highScore.length() - 1), 127);
                 } else {
-                    AssetLoader.shadow.draw(batcher, "New high Score!", 19, 56);
-                    AssetLoader.font.draw(batcher, "New high Score!", 18, 55);
+                    AssetLoader.shadow.draw(batcher, "High Score!", 19, 56);
+                    AssetLoader.font.draw(batcher, "High Score!", 18, 55);
                 }
                 AssetLoader.shadow.draw(batcher, "Try again ?", 23, 76);
                 AssetLoader.font.draw(batcher, "Try again ?", 22, 75);
