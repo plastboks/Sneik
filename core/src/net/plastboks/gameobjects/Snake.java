@@ -11,11 +11,12 @@ import java.util.LinkedList;
 public class Snake extends Creature {
 
     private final int startBodySize = 4;
+    private final float startLvl = 0.8f;
 
     private LinkedList<Node> body;
     private int bodySize = startBodySize;
     private int collisions;
-    private float lvl = 0.8f;
+    private float lvl = startLvl;
     private float lvlInc = 0.2f;
     private float maxLvl = 1.6f;
 
@@ -101,6 +102,7 @@ public class Snake extends Creature {
         setAlive(true);
         body = new LinkedList<Node>();
         bodySize = startBodySize;
+        lvl = startLvl;
     }
 
     public LinkedList<Node> getBody() { return body; }
