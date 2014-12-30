@@ -15,7 +15,6 @@ public class Snake extends Creature {
 
     private LinkedList<Node> body;
     private int bodySize = startBodySize;
-    private int collisions;
     private float lvl = startLvl;
     private float lvlInc = 0.2f;
     private float maxLvl = 1.6f;

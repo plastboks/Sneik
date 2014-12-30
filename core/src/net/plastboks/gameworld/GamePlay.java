@@ -15,7 +15,7 @@ public class GamePlay {
     private LinkedList<Autonomous> food;
     private Snake snake;
     private int inc;
-    private boolean lock;
+    private int maxFoodCount = 6;
 
     public GamePlay(Snake snake) {
         food = new LinkedList<Autonomous>();
@@ -29,17 +29,27 @@ public class GamePlay {
         food.add(new Mouse(15, 15));
     }
 
-    private void remove(Autonomous a) { food.remove(a); }
-    private void removeRandom() {
-
+    private LinkedList<Autonomous> getClone() {
+        return (LinkedList<Autonomous>)food.clone();
     }
 
-    private void addFood()
-    {
-        lock = true;
-        //if (inc % 5 == 0) { food.add(new Bird(15, 15)); }
-        //if (inc % 7 == 0) { food.add(new Mouse(15, 15)); }
-        lock = false;
+    private void addFood() {
+        if (food.size() > maxFoodCount) { return; }
+
+        LinkedList<Autonomous> tmp = getClone();
+        if (inc % 5 == 0) { tmp.add(new Bird(15, 15)); }
+        if (inc % 7 == 0) { tmp.add(new Mouse(15, 15)); }
+        food = tmp;
+    }
+
+    private void removeRandomFood() {
+        if (food.size() == 1) { return; }
+
+        LinkedList<Autonomous> tmp = getClone();
+        for (int i = 0; i < tmp.size(); i++) {
+            if ((int)(Math.random() * 20) % 5 == 0) { tmp.remove(i); }
+        }
+        food = tmp;
     }
 
     public void increment(Autonomous a) {
@@ -47,8 +57,8 @@ public class GamePlay {
         snake.incrementBodySizeBy(4);
         if (++inc % 5 == 0) { snake.incrementSpeed(); }
         addFood();
+        removeRandomFood();
     }
 
-    public boolean getLock() { return lock; }
     public LinkedList<Autonomous> getFood() { return food; }
 }
