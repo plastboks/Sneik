@@ -93,7 +93,6 @@ public class GameWorld {
 
     public Snake getSnake() { return snake; }
     public LinkedList<Autonomous> getFood() { return gp.getFood(); }
-    public GamePlay getGamePlay() { return gp; }
 
     public boolean isReady() { return currentState == GameState.READY; }
     public boolean isGameOver() { return currentState == GameState.GAMEOVER; }
