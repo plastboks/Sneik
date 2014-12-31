@@ -26,6 +26,6 @@ public class Bird extends Autonomous
 
     public TextureRegion getTexture() { return AssetLoader.bird; }
 
-    public void playSound() { AssetLoader.birdfx.play(); }
+    public void playSound() { AssetLoader.coin.play(); }
     public int getScore() { return score; }
 }

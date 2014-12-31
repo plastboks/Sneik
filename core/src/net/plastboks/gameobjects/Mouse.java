@@ -26,6 +26,6 @@ public class Mouse extends Autonomous
 
     public TextureRegion getTexture() { return AssetLoader.mouse; }
 
-    public void playSound() { AssetLoader.mousefx.play(); }
+    public void playSound() { AssetLoader.coin.play(); }
     public int getScore() { return score; }
 }
