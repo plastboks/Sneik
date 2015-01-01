@@ -10,11 +10,21 @@ public class Mouse extends Autonomous
 {
     private float lvl = 0.3f;
     private int score = 2;
+    private float lvlInc = 0.2f;
+    private float maxLvl = 1.6f;
 
-    public Mouse(int width, int height) {
+    public static final int width = 15;
+    public static final int height = 15;
+
+    public Mouse() {
         super(width, height);
         setFactor(2000);
         setDivider(543);
+    }
+
+    public Mouse(int speed) {
+        this();
+        for (int i = 0; i < speed; i++) { incrementSpeed(); }
     }
 
     public void update(float delta) {
@@ -28,4 +38,8 @@ public class Mouse extends Autonomous
 
     public void playSound() { AssetLoader.coin.play(); }
     public int getScore() { return score; }
+
+    public void incrementSpeed() {
+        if (lvl + lvlInc <= maxLvl) { lvl += lvlInc; }
+    }
 }

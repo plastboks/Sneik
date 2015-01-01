@@ -53,6 +53,7 @@ public abstract class Autonomous extends Creature implements Artificial {
 
     public abstract TextureRegion getTexture();
     public abstract void setLvl(float lvl);
+    public abstract void incrementSpeed();
     public abstract void playSound();
     public abstract int getScore();
 }

@@ -14,8 +14,7 @@ public class GamePlay {
 
     private LinkedList<Autonomous> food;
     private Snake snake;
-    private int inc;
-    private int maxFoodCount = 6;
+    private int inc = 0, maxFoodCount = 0;
 
     public GamePlay(Snake snake) {
         food = new LinkedList<Autonomous>();
@@ -25,8 +24,8 @@ public class GamePlay {
     }
 
     private void initFood() {
-        food.add(new Bird(15, 15));
-        food.add(new Mouse(15, 15));
+        food.add(new Bird(inc));
+        food.add(new Mouse(inc));
     }
 
     private LinkedList<Autonomous> getClone() {
@@ -37,8 +36,8 @@ public class GamePlay {
         if (food.size() > maxFoodCount) { return; }
 
         LinkedList<Autonomous> tmp = getClone();
-        if (inc % 5 == 0) { tmp.add(new Bird(15, 15)); }
-        if (inc % 7 == 0) { tmp.add(new Mouse(15, 15)); }
+        if (inc % 5 == 0) { tmp.add(new Bird(inc)); }
+        if (inc % 7 == 0) { tmp.add(new Mouse(inc)); }
         food = tmp;
     }
 
