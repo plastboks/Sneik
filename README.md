@@ -1,6 +1,7 @@
 Sneik
 =====
 My small Android (and then some) game using [libgdx](http://libgdx.badlogicgames.com/). This is just a toy project for getting more familiar with libgdx and game development.
+![ScreenShot](screenshots/screenshot.2015-01-02.png)
 
 About
 =====
