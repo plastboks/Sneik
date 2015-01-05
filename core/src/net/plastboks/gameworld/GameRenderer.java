@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.plastboks.gameobjects.*;
 import net.plastboks.screens.GameScreen;
+import net.plastboks.sneik.SneikGame;
 import net.plastboks.sneikhelpers.AssetLoader;
 
 /**
@@ -85,6 +86,10 @@ public class GameRenderer {
         if (world.isReady()) {
             AssetLoader.shadow.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 76);
             AssetLoader.font.draw(batcher, "Touch me", (GameScreen.GAME_WIDTH / 2) - 42, 75);
+            AssetLoader.fontSmall.draw(batcher,
+                                       "V:" + SneikGame.version,
+                                       GameScreen.GAME_WIDTH - 30,
+                                       GameScreen.GAME_HEIGHT - 10);
         } else {
             if (world.isGameOver() || world.isHighScore()) {
                 String score = world.getScore() + "";

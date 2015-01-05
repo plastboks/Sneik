@@ -18,7 +18,7 @@ public class AssetLoader {
     public static TextureRegion bird, mouse;
 
     public static Sound dead, coin, flap, mousefx, birdfx;
-    public static BitmapFont font, shadow;
+    public static BitmapFont font, shadow, fontSmall, shadowSmall;
 
     public static Preferences prefs;
 
@@ -51,6 +51,9 @@ public class AssetLoader {
         font.setScale(.25f, -.25f);
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
         shadow.setScale(.25f, -.25f);
+
+        fontSmall = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+        fontSmall.setScale(.10f, -.10f);
 
         prefs = Gdx.app.getPreferences("Sneik");
 
