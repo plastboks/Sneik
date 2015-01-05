@@ -2,6 +2,7 @@ TODOS
 =====
 
 - [ ] Solve out of map bug.
+- [ ] Clean up AssetLoader.
 - [ ] Graphics orientation is not rotation. Flip graphics.
 - [ ] Implement tiny main menu.
 - [ ] Autonomous movement, and increment level.
