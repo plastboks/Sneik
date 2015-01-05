@@ -6,6 +6,8 @@ import net.plastboks.sneikhelpers.AssetLoader;
 
 public class SneikGame extends Game {
 
+    private double version = 0.01;
+
     @Override
     public void create() {
         AssetLoader.load();
